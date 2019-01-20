@@ -1,6 +1,6 @@
 
 /**
- * Stringify
+ *
  */
 
 const ___stringify = (message) => {
@@ -34,7 +34,7 @@ const ___stringify = (message) => {
 }
 
 /**
- * Class
+ *
  */
 
 class Log {
@@ -91,7 +91,7 @@ class Log {
 }
 
 /**
- * Export
+ *
  */
 
 module.exports = new Log()
