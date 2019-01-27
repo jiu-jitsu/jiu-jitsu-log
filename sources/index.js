@@ -80,9 +80,7 @@ class Log {
 	___log (type, title, message) {
 
 		const date = new Date()
-		const error = new Error()
-		const stack = error.stack.split('\n')[2].trim()
-		const text = (`[${date.toISOString()}] Logger ---> ${this.colors[type]}${title}${this.colors['D']}\n${___stringify(message)}`).trim()
+		const text = (`[${date.toISOString()}] Log ---> ${this.colors[type]}${title}${this.colors['D']}\n${___stringify(message)}`).trim()
 
 		console.log(text)
 
