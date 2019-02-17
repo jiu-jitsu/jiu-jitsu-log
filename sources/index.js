@@ -5,27 +5,75 @@
 
 const ___stringify = (message) => {
 
+	/**
+	 *
+	 */
+
 	if (!message) {
+
+		/**
+		 *
+		 */
 
 		return ''
 
+		/**
+		 *
+		 */
+
 	} else if (message.constructor === Number) {
 
+		/**
+		 *
+		 */
+
 		return message
+
+		/**
+		 *
+		 */
 
 	} else if (message.constructor === String) {
 
+		/**
+		 *
+		 */
+
 		return message
+
+		/**
+		 *
+		 */
 
 	} else if (message.constructor === Object) {
 
+		/**
+		 *
+		 */
+
 		return JSON.stringify(message, null, 4)
+
+		/**
+		 *
+		 */
 
 	} else if (message.constructor === Array) {
 
+		/**
+		 *
+		 */
+
 		return JSON.stringify(message, null, 4)
 
+		/**
+		 *
+		 */
+
 	} else {
+
+		/**
+		 *
+		 */
 
 		return message
 
@@ -39,7 +87,15 @@ const ___stringify = (message) => {
 
 class Log {
 
+	/**
+	 *
+	 */
+
 	constructor () {
+
+		/**
+		 *
+		 */
 
 		this.colors = {
 
@@ -67,11 +123,19 @@ class Log {
 
 	info (title, message) {
 
+		/**
+		 *
+		 */
+
 		this.___log('I', title, message)
 
 	}
 
 	fail (title, message) {
+
+		/**
+		 *
+		 */
 
 		this.___log('F', title, message)
 
@@ -79,8 +143,16 @@ class Log {
 
 	___log (type, title, message) {
 
+		/**
+		 *
+		 */
+
 		const date = new Date()
 		const text = (`[${date.toISOString()}] Log ---> ${this.colors[type]}${title}${this.colors['D']}\n${___stringify(message)}`).trim()
+
+		/**
+		 *
+		 */
 
 		console.log(text)
 
