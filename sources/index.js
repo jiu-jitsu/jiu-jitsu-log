@@ -165,5 +165,3 @@ class Log {
  */
 
 module.exports = new Log()
-
-
