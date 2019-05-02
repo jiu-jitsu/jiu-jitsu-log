@@ -10,74 +10,46 @@ const ___stringify = (message) => {
 	 */
 
 	if (!message) {
-
-		/**
-		 *
-		 */
-
 		return ''
-
-		/**
-		 *
-		 */
-
-	} else if (message.constructor === Number) {
-
-		/**
-		 *
-		 */
-
-		return message
-
-		/**
-		 *
-		 */
-
-	} else if (message.constructor === String) {
-
-		/**
-		 *
-		 */
-
-		return message
-
-		/**
-		 *
-		 */
-
-	} else if (message.constructor === Object) {
-
-		/**
-		 *
-		 */
-
-		return JSON.stringify(message, null, 4)
-
-		/**
-		 *
-		 */
-
-	} else if (message.constructor === Array) {
-
-		/**
-		 *
-		 */
-
-		return JSON.stringify(message, null, 4)
-
-		/**
-		 *
-		 */
-
-	} else {
-
-		/**
-		 *
-		 */
-
-		return message
-
 	}
+
+	/**
+	 *
+	 */
+
+	if (message.constructor === Number) {
+		return message
+	}
+
+	/**
+	 *
+	 */
+
+	if(message.constructor === String) {
+		return message
+	}
+
+	/**
+	 *
+	 */
+
+	if (message.constructor === Object) {
+		return JSON.stringify(message, null, 4)
+	}
+
+	/**
+	 *
+	 */
+
+	if (message.constructor === Array) {
+		return JSON.stringify(message, null, 4)
+	}
+
+	/**
+	 *
+	 */
+
+	return message
 
 }
 
@@ -121,6 +93,10 @@ class Log {
 
 	}
 
+	/**
+	 *
+	 */
+
 	info (title, message) {
 
 		/**
@@ -131,6 +107,10 @@ class Log {
 
 	}
 
+	/**
+	 *
+	 */
+
 	fail (title, message) {
 
 		/**
@@ -140,6 +120,10 @@ class Log {
 		this.___log('F', title, message)
 
 	}
+
+	/**
+	 *
+	 */
 
 	___log (type, title, message) {
 
