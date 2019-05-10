@@ -69,6 +69,26 @@ class Log {
 		 *
 		 */
 
+		this.types = {
+
+			/**
+			 * info
+			 */
+
+			I: 'INFO',
+
+			/**
+			 * fail
+			 */
+
+			F: 'FAIL'
+
+		}
+
+		/**
+		 *
+		 */
+
 		this.colors = {
 
 			/**
@@ -132,7 +152,7 @@ class Log {
 		 */
 
 		const date = new Date()
-		const text = (`[${date.toISOString()}] Log ---> ${this.colors[type]}${title}${this.colors['D']}\n${___stringify(message)}`).trim()
+		const text = (`${date.toISOString()} [${this.types[type]}] ---> ${this.colors[type]}${title}${this.colors['D']}\n${___stringify(message)}`).trim()
 
 		/**
 		 *
