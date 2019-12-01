@@ -97,19 +97,90 @@ const colorize = (type) => {
  *
  */
 
-module.exports = (key, type, message) => {
+const getDate = () => {
 
 	/**
 	 *
 	 */
 
-	const date = new Date()
-	const text = `${date.toISOString()} [${type}] ---> ${colorize(type)}${key}${colorize(`INFO`)}\n${stringify(message)}`.trim()
+	return new Date()
+
+}
+
+/**
+ *
+ */
+
+const getLine = () => {
 
 	/**
 	 *
 	 */
 
-	console.log(text)
+	const error = new Error()
+	const stack = error.stack.split(`\n`).slice(3, 9).map((str) => str.trim())
+	const line = stack[0].split(` `).pop().replace(/\(|\)/g, ``)
+
+	/**
+	 *
+	 */
+
+	return line
+
+}
+
+/**
+ *
+ */
+
+module.exports = (key, type, data, error) => {
+
+	/**
+	 *
+	 */
+
+	const date = getDate()
+	const line = getLine()
+	const title = `${date.toISOString()} [${type}] ---> ${colorize(type)}${key}${colorize(`INFO`)}`.trim()
+
+	/**
+	 *
+	 */
+
+	console.log(`================================================================`)
+
+	/**
+	 *
+	 */
+
+	console.log(stringify(line))
+	console.log(stringify(title))
+
+	/**
+	 *
+	 */
+
+	if (data) {
+		console.log(stringify(data))
+	}
+
+	/**
+	 *
+	 */
+
+	if (error) {
+		console.log(stringify(error))
+	}
+
+	/**
+	 *
+	 */
+
+	return {
+		key,
+		type,
+		data,
+		error
+	}
 
 }
