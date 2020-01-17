@@ -3,6 +3,46 @@
  *
  */
 
+const colorize = (type) => {
+
+	/**
+	 *
+	 */
+
+	if (type === `OK`) {
+		return `\x1b[32m`
+	}
+
+	/**
+	 *
+	 */
+
+	if (type === `INFO`) {
+		return `\x1b[0m`
+	}
+
+	/**
+	 *
+	 */
+
+	if (type === `FAIL`) {
+		return `\x1b[31m`
+	}
+
+	/**
+	 *
+	 */
+
+	if (type === `WARNING`) {
+		return `\x1b[33m`
+	}
+
+}
+
+/**
+ *
+ */
+
 const stringify = (message) => {
 
 	/**
@@ -57,46 +97,6 @@ const stringify = (message) => {
  *
  */
 
-const colorize = (type) => {
-
-	/**
-	 *
-	 */
-
-	if (type === `OK`) {
-		return `\x1b[32m`
-	}
-
-	/**
-	 *
-	 */
-
-	if (type === `INFO`) {
-		return `\x1b[0m`
-	}
-
-	/**
-	 *
-	 */
-
-	if (type === `FAIL`) {
-		return `\x1b[31m`
-	}
-
-	/**
-	 *
-	 */
-
-	if (type === `WARNING`) {
-		return `\x1b[33m`
-	}
-
-}
-
-/**
- *
- */
-
 const getDate = () => {
 
 	/**
@@ -133,7 +133,7 @@ const getLine = () => {
  *
  */
 
-module.exports = (key, type, data, error) => {
+module.exports = (id, key, type, code, data) => {
 
 	/**
 	 *
@@ -141,7 +141,7 @@ module.exports = (key, type, data, error) => {
 
 	const date = getDate()
 	const line = getLine()
-	const title = `${date.toISOString()} [${type}] ---> ${colorize(type)}${key}${colorize(`INFO`)}`.trim()
+	const title = `${date.toISOString()} [${type}] ---> ${colorize(type)}${id}/${key}/${code}${colorize(`INFO`)}`.trim()
 
 	/**
 	 *
@@ -168,19 +168,14 @@ module.exports = (key, type, data, error) => {
 	 *
 	 */
 
-	if (error) {
-		console.log(stringify(error))
-	}
-
-	/**
-	 *
-	 */
-
 	return {
+		id,
 		key,
 		type,
-		data,
-		error
+		code,
+		date,
+		line,
+		data
 	}
 
 }
