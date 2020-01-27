@@ -133,7 +133,7 @@ const getLine = () => {
  *
  */
 
-module.exports = (id, key, type, code, data) => {
+module.exports = (id, key, type, text, data) => {
 
 	/**
 	 *
@@ -141,7 +141,7 @@ module.exports = (id, key, type, code, data) => {
 
 	const date = getDate()
 	const line = getLine()
-	const title = `${date.toISOString()} [${type}] ---> ${colorize(type)}${id}/${key}/${code}${colorize(`INFO`)}`.trim()
+	const title = `${date.toISOString()} ---> ${colorize(type)} ${id} -> ${key} -> [${type}] -> ${text}${colorize(`INFO`)}`.trim()
 
 	/**
 	 *
@@ -172,7 +172,7 @@ module.exports = (id, key, type, code, data) => {
 		id,
 		key,
 		type,
-		code,
+		text,
 		date,
 		line,
 		data
