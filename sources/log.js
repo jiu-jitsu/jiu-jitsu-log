@@ -133,7 +133,7 @@ const getLine = () => {
  *
  */
 
-module.exports = (id, key, type, text, data) => {
+module.exports = (id, key, type, text, data, show) => {
 
 	/**
 	 *
@@ -160,7 +160,7 @@ module.exports = (id, key, type, text, data) => {
 	 *
 	 */
 
-	if (data) {
+	if (show && data) {
 		console.log(stringify(data))
 	}
 
