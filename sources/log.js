@@ -133,28 +133,25 @@ const getLine = () => {
  *
  */
 
-module.exports = (id, key, type, text, data, show) => {
+module.exports = (key, type, text, data, show) => {
 
 	/**
 	 *
 	 */
 
-	const date = getDate()
-	const line = getLine()
-	const title = `${date.toISOString()} ---> ${colorize(type)} ${id} -> ${key} -> [${type}] -> ${text}${colorize(`INFO`)}`.trim()
+	const date = new Date()
+	const error = new Error()
+	const stack = error.stack.split(`\n`).slice(2, 9).map((str) => str.trim())
+	const stackLine = stack[0].split(` `).pop().replace(/\(|\)/g, ``)
+	const stackTitle = `${date.toISOString()} ---> ${colorize(type)} -> ${key} -> [${type}] -> ${text}${colorize(`INFO`)}`.trim()
 
 	/**
 	 *
 	 */
 
 	console.log(`================================================================`)
-
-	/**
-	 *
-	 */
-
-	console.log(stringify(line))
-	console.log(stringify(title))
+	console.log(stringify(stackLine))
+	console.log(stringify(stackTitle))
 
 	/**
 	 *
@@ -162,20 +159,6 @@ module.exports = (id, key, type, text, data, show) => {
 
 	if (show && data) {
 		console.log(stringify(data))
-	}
-
-	/**
-	 *
-	 */
-
-	return {
-		id,
-		key,
-		type,
-		text,
-		date,
-		line,
-		data
 	}
 
 }
