@@ -142,7 +142,8 @@ module.exports = (key, type, text, reason, show) => {
 	const date = new Date()
 	const error = new Error()
 	const stack = error.stack.split(`\n`).slice(2, 9).map((str) => str.trim())
-	const stackLine = stack[0].split(` `).pop().replace(/\(|\)/g, ``)
+	const stackLine1 = stack[0].split(` `).pop().replace(/\(|\)/g, ``)
+	const stackLine2 = stackLine1.substring(stackLine1.indexOf(`/jiu-jitsu-`))
 	const stackTitle = `${date.toISOString()} ${colorize(type)} ---> ${key} -> [${type}] -> ${text}${colorize(`INFO`)}`.trim()
 
 	/**
@@ -150,7 +151,7 @@ module.exports = (key, type, text, reason, show) => {
 	 */
 
 	console.log(`================`)
-	console.log(stringify(stackLine))
+	console.log(stringify(stackLine2))
 	console.log(stringify(stackTitle))
 
 	/**
