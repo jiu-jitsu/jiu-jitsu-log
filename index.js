@@ -3,4 +3,4 @@
  *
  */
 
-module.exports = require(`./sources/log`)
+module.exports = require("./sources/log")
