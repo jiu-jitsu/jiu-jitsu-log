@@ -3,7 +3,7 @@
  *
  */
 
-const colorize = (type) => {
+function colorize (type) {
 
 	/**
 	 *
@@ -25,7 +25,7 @@ const colorize = (type) => {
 	 *
 	 */
 
-	if (type === "FAIL") {
+	if (type === "ERROR") {
 		return "\x1b[31m"
 	}
 
@@ -43,13 +43,13 @@ const colorize = (type) => {
  *
  */
 
-const stringify = (message) => {
+function stringify (value) {
 
 	/**
 	 *
 	 */
 
-	if (!message) {
+	if (!value) {
 		return ""
 	}
 
@@ -57,39 +57,47 @@ const stringify = (message) => {
 	 *
 	 */
 
-	if (message.constructor === Number) {
-		return message
+	if (value.constructor === Number) {
+		return value
 	}
 
 	/**
 	 *
 	 */
 
-	if (message.constructor === String) {
-		return message
+	if (value.constructor === String) {
+		return value
 	}
 
 	/**
 	 *
 	 */
 
-	if (message.constructor === Object) {
-		return JSON.stringify(message, null, 4)
+	if (value.constructor === Object) {
+		return JSON.stringify(value, null, 4)
 	}
 
 	/**
 	 *
 	 */
 
-	if (message.constructor === Array) {
-		return JSON.stringify(message, null, 4)
+	if (value.constructor === Array) {
+		return JSON.stringify(value, null, 4)
 	}
 
 	/**
 	 *
 	 */
 
-	return message
+	if (value.constructor === Error) {
+		return JSON.stringify(errorToObject(value), null, 4)
+	}
+
+	/**
+	 *
+	 */
+
+	return value
 
 }
 
@@ -97,33 +105,71 @@ const stringify = (message) => {
  *
  */
 
-module.exports = async (key, type, text, reason, show) => {
+function errorToObject (error) {
+	const name = "Error"
+	const stack = error.stack.split("\n").slice(1, 9).map((str) => str.trim())
+	const message = error.message
+	return { name, message, stack }
+}
+
+/**
+ *
+ */
+
+class LOG {
 
 	/**
 	 *
 	 */
 
-	const date = new Date()
-	const error = new Error()
-	const stack = error.stack.split("\n").slice(2, 9).map((str) => str.trim())
-	const stackLine1 = stack[0].split(" ").pop().replace(/\(|\)/g, "")
-	const stackLine2 = stackLine1.substring(stackLine1.indexOf("/jiu-jitsu-"))
-	const stackTitle = `${date.toISOString()} ${colorize(type)} ---> ${key} -> [${type}] -> ${text}${colorize("INFO")}`.trim()
+	constructor (key, type, body, show) {
 
-	/**
-	 *
-	 */
+		/**
+		 *
+		 */
 
-	console.log("================")
-	console.log(stringify(stackLine2))
-	console.log(stringify(stackTitle))
+		const date = new Date()
+		const error = new Error()
+		const errorAsObject = errorToObject(error)
+		const stack = errorAsObject.stack.slice(2, 9)
+		const stackLine1 = stack[0].split(" ").pop().replace(/[()]/gi, "")
+		const stackLine2 = stackLine1.substring(stackLine1.indexOf("/jiu-jitsu-"))
+		const stackTitle = `${date.toISOString()}${colorize(type)} ---> ${key} -> [${type}] -> ${body.shift()}${colorize("INFO")}`.trim()
 
-	/**
-	 *
-	 */
+		/**
+		 *
+		 */
 
-	if (show && reason) {
-		console.log(stringify(reason))
+		console.log("================")
+		console.log(stringify(stackLine2))
+		console.log(stringify(stackTitle))
+
+		/**
+		 *
+		 */
+
+		if (show && body) {
+			while (body[0]) {
+				console.log(stringify(body.shift()))
+			}
+		}
+
+		/**
+		 *
+		 */
+
+		this.key = key
+		this.type = type
+		this.date = date
+		this.body = body
+		this.stack = stack
+
 	}
 
 }
+
+/**
+ *
+ */
+
+module.exports = LOG
