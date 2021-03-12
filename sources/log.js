@@ -131,7 +131,7 @@ class LOG {
 		const date = new Date()
 		const error = new Error()
 		const errorAsObject = errorToObject(error)
-		const stack = errorAsObject.stack.slice(2, 9)
+		const stack = errorAsObject.stack.slice(1, 9)
 		const stackLine1 = stack[0].split(" ").pop().replace(/[()]/gi, "")
 		const stackLine2 = stackLine1.substring(stackLine1.indexOf("/jiu-jitsu-"))
 		const stackTitle = `${date.toISOString()}${colorize(type)} ---> ${key} -> [${type}] -> ${body.shift()}${colorize("INFO")}`.trim()
@@ -150,6 +150,7 @@ class LOG {
 
 		if (show && body) {
 			while (body[0]) {
+				console.log("====")
 				console.log(stringify(body.shift()))
 			}
 		}
